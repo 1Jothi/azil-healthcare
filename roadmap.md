@@ -1,0 +1,4 @@
+- [x] Record the screenshot-matching brief, contact facts, and image assets
+- [ ] Build shared navigation, page styling, and image-based content
+- [ ] Implement Home, About, Products, Services, and Contact pages
+- [ ] Verify page navigation, mobile layout, and current preview build
