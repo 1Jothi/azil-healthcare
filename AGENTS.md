@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+Keep each user-facing page in a dedicated TanStack Router route file so page-specific metadata and navigation stay distinct.
