@@ -153,7 +153,7 @@ export function AboutTeaser() {
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSubmitted(true); };
-  return <form className="enquiry-form" onSubmit={submit}>
+  return <form id="contact-form" className="enquiry-form" onSubmit={submit}>
     <h2>Send Us an Enquiry</h2><p>Fill in the form below and our team will get back to you shortly.</p>
     <div className="form-grid">
       <label>Your Name *<input name="name" placeholder="Enter your name" required /></label>
