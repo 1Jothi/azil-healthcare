@@ -121,7 +121,7 @@ function ContactPage() {
                 directly on WhatsApp.
               </p>
             </div>
-            <Button asChild className="whatsapp-button">
+            <Button asChild className="action-button whatsapp-button">
               <a href={`https://wa.me/91${brand.phone}`} target="_blank" rel="noreferrer">
                 <MessageCircle />
                 Chat on WhatsApp
@@ -138,7 +138,7 @@ function ContactPage() {
                 Tell us your requirements and we will provide the best quotation for your hospital.
               </p>
             </div>
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="action-button">
               <a href="#contact-form">
                 <FileText />
                 Get a Quotation
@@ -155,10 +155,14 @@ function ContactPage() {
                 Speak directly with our team for product enquiries, technical support or orders.
               </p>
             </div>
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="action-button">
               <a href={`tel:${brand.phone}`}>
                 <Phone />
-                {brand.phone} | {brand.alternatePhone}
+                <span>
+                  {brand.phone}
+                  <br />
+                  {brand.alternatePhone}
+                </span>
               </a>
             </Button>
           </article>
@@ -192,9 +196,10 @@ function ContactPage() {
           <a href={`tel:${brand.phone}`}>
             <Phone />
             <span>
-              <b>Phone Call</b>9786994312
+              <b>Phone Call</b>
+              {brand.phone}
               <br />
-              9840616437
+              {brand.alternatePhone}
             </span>
           </a>
           <a href={`https://wa.me/91${brand.phone}`}>
