@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Home", to: "/" as const },
   { label: "About Us", to: "/about" as const },
   { label: "Products", to: "/products" as const },
-  { label: "Brands", to: "/#brands" as const },
+  { label: "Brands", to: "/" as const },
   { label: "Services", to: "/services" as const },
   { label: "Catalogue", to: "/products" as const },
   { label: "Contact Us", to: "/contact" as const },
