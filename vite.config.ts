@@ -5,6 +5,7 @@ import { nitro } from "nitro/vite";
 import { defineConfig } from "vite";
 
 const isGitHubPages = process.env.GITHUB_PAGES === "true";
+const isStaticDeployment = isGitHubPages || process.env.STATIC_DEPLOYMENT === "true";
 
 export default defineConfig({
   base: isGitHubPages ? "/azil-healthcare/" : "/",
@@ -13,7 +14,7 @@ export default defineConfig({
     tanstackStart({
       // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
       server: { entry: "server" },
-      prerender: isGitHubPages
+      prerender: isStaticDeployment
         ? {
             enabled: true,
             crawlLinks: true,
@@ -22,7 +23,7 @@ export default defineConfig({
         : undefined,
     }),
     react(),
-    nitro({ preset: isGitHubPages ? "node_server" : "cloudflare-module" }),
+    nitro({ preset: isStaticDeployment ? "node_server" : "cloudflare-module" }),
   ],
   resolve: { tsconfigPaths: true },
 });

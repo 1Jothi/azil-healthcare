@@ -1,0 +1,8 @@
+[build]
+command = "npm run build"
+publish = ".output/public"
+
+[build.environment]
+NODE_VERSION = "22"
+NPM_FLAGS = "--legacy-peer-deps"
+STATIC_DEPLOYMENT = "true"

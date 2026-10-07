@@ -15,3 +15,6 @@ Every push to `main` builds and deploys the static website to GitHub Pages:
 https://1jothi.github.io/azil-healthcare/
 
 The deployment workflow prerenders the site routes so they also work when opened directly.
+
+To publish on Netlify, import this GitHub repository as a new Netlify site. Netlify reads
+`netlify.toml` for the build command, Node.js version, and publish directory.
