@@ -12,7 +12,7 @@ const navLinks = [
   { label: "Home", to: "/" as const },
   { label: "About Us", to: "/about" as const },
   { label: "Products", to: "/products" as const },
-  { label: "Brands", to: "/#brands" as const },
+  { label: "Brands", to: "/" as const, hash: "brands" },
   { label: "Services", to: "/services" as const },
   { label: "Catalogue", to: "/products" as const },
   { label: "Contact Us", to: "/contact" as const },
@@ -44,11 +44,13 @@ export function SiteHeader() {
       </div>
       <nav className={`main-nav${open ? " nav-open" : ""}`} aria-label="Main navigation">
         <div className="nav-inner">
-          {navLinks.map(({ label, to }) => {
-            const active = (to === "/" && currentPath === "/") || (to === "/about" && currentPath === "/about") || (to === "/products" && currentPath === "/products") || (to === "/services" && currentPath === "/services") || (to === "/contact" && currentPath === "/contact");
-            return <Link key={label} to={to} className={`nav-link${active ? " active" : ""}`} onClick={() => setOpen(false)}>{label}{label === "Products" && <span className="nav-chevron">⌄</span>}</Link>;
+          {navLinks.map(({ label, to, hash }) => {
+            const active = (label === "Home" && currentPath === "/") || (label === "About Us" && currentPath === "/about") || (label === "Products" && currentPath === "/products") || (label === "Services" && currentPath === "/services") || (label === "Contact Us" && currentPath === "/contact");
+            const className = `nav-link${active ? " active" : ""}`;
+            const content = <>{label}{label === "Products" && <span className="nav-chevron">⌄</span>}</>;
+            return hash ? <Link key={label} to="/" hash={hash} className={className} onClick={() => setOpen(false)}>{content}</Link> : <Link key={label} to={to} className={className} onClick={() => setOpen(false)}>{content}</Link>;
           })}
-          <a className="nav-search" href="/products" aria-label="Browse products"><Search /></a>
+          <Link className="nav-search" to="/products" aria-label="Browse products"><Search /></Link>
         </div>
       </nav>
     </header>
@@ -80,8 +82,9 @@ export function Hero({ image, title, subtitle, description, features, className 
       <div className="hero-shade" />
       <div className="hero-inner">
         <div className="hero-copy">
+          {subtitle && className.includes("products-hero") && <h2>{subtitle}</h2>}
           <h1>{title}</h1>
-          {subtitle && <h2>{subtitle}</h2>}
+          {subtitle && !className.includes("products-hero") && <h2>{subtitle}</h2>}
           <p>{description}</p>
           <div className="hero-feature-row">{features.map((feature) => <div className="hero-feature" key={feature.label}>{feature.icon}<span>{feature.label}</span></div>)}</div>
         </div>
@@ -152,7 +155,21 @@ export function AboutTeaser() {
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
-  const submit = (event: FormEvent<HTMLFormElement>) => { event.preventDefault(); setSubmitted(true); };
+  const submit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    const subject = encodeURIComponent(`Medical equipment enquiry from ${String(data.get("name") ?? "Website visitor")}`);
+    const body = encodeURIComponent([
+      `Name: ${data.get("name") ?? ""}`,
+      `Hospital / Organization: ${data.get("organization") ?? ""}`,
+      `Phone: ${data.get("phone") ?? ""}`,
+      `Email: ${data.get("email") ?? ""}`,
+      `Product: ${data.get("product") ?? ""}`,
+      `Requirements: ${data.get("message") ?? ""}`,
+    ].join("\n"));
+    window.location.href = `mailto:${brand.email}?subject=${subject}&body=${body}`;
+    setSubmitted(true);
+  };
   return <form id="contact-form" className="enquiry-form" onSubmit={submit}>
     <h2>Send Us an Enquiry</h2><p>Fill in the form below and our team will get back to you shortly.</p>
     <div className="form-grid">
@@ -164,7 +181,7 @@ export function ContactForm() {
       <label className="form-wide">Message / Requirements<textarea name="message" placeholder="Please provide details of your requirement..." rows={3} /></label>
     </div>
     <Button type="submit" className="send-button"><Send />{submitted ? "Enquiry Details Ready" : "Send Enquiry"}</Button>
-    {submitted && <p className="form-confirmation" role="status">Thank you. Your enquiry details are ready; contact us by phone or WhatsApp to send them.</p>}
+    {submitted && <p className="form-confirmation" role="status">Your email app is opening with your enquiry details.</p>}
   </form>;
 }
 
