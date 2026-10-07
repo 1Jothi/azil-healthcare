@@ -44,11 +44,13 @@ export function SiteHeader() {
       </div>
       <nav className={`main-nav${open ? " nav-open" : ""}`} aria-label="Main navigation">
         <div className="nav-inner">
-          {navLinks.map(({ label, to }) => {
+          {navLinks.map(({ label, to, hash }) => {
             const active = (label === "Home" && currentPath === "/") || (label === "About Us" && currentPath === "/about") || (label === "Products" && currentPath === "/products") || (label === "Services" && currentPath === "/services") || (label === "Contact Us" && currentPath === "/contact");
-            return <Link key={label} to={to} hash={"hash" in navLinks.find((item) => item.label === label) ? "brands" : undefined} className={`nav-link${active ? " active" : ""}`} onClick={() => setOpen(false)}>{label}{label === "Products" && <span className="nav-chevron">⌄</span>}</Link>;
+            const className = `nav-link${active ? " active" : ""}`;
+            const content = <>{label}{label === "Products" && <span className="nav-chevron">⌄</span>}</>;
+            return hash ? <Link key={label} to="/" hash={hash} className={className} onClick={() => setOpen(false)}>{content}</Link> : <Link key={label} to={to} className={className} onClick={() => setOpen(false)}>{content}</Link>;
           })}
-          <a className="nav-search" href="/products" aria-label="Browse products"><Search /></a>
+          <Link className="nav-search" to="/products" aria-label="Browse products"><Search /></Link>
         </div>
       </nav>
     </header>
