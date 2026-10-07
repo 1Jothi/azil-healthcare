@@ -158,11 +158,7 @@ function ContactPage() {
             <Button asChild variant="outline" className="action-button">
               <a href={`tel:${brand.phone}`}>
                 <Phone />
-                <span>
-                  {brand.phone}
-                  <br />
-                  {brand.alternatePhone}
-                </span>
+                <span>{brand.phone} | {brand.alternatePhone}</span>
               </a>
             </Button>
           </article>

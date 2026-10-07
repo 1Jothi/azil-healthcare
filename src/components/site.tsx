@@ -5,6 +5,7 @@ import {
   Headphones, HeartPulse, Mail, MapPin, Menu, MessageCircle, Phone,
   Search, Send, Settings, ShieldCheck, Tag, Target, Users, Wrench, X, Eye,
 } from "lucide-react";
+import azilLogoUrl from "@/assets/azil-healthcare-logo.png";
 import { Button } from "@/components/ui/button";
 import { brand, images, productCategories } from "@/lib/site-data";
 
@@ -26,6 +27,7 @@ export function SiteHeader() {
       <div className="brand-row">
         <div className="brand-wrap">
           <Link to="/" className="identity" aria-label="AZIL Healthcare home">
+            <img className="identity-logo" src={azilLogoUrl} alt="" />
             <span className="identity-copy">
               <span className="identity-title"><strong>AZIL</strong> <b>HEALTHCARE</b></span>
               <span className="identity-subtitle">Medical Equipment Sales &amp; Service</span>
@@ -59,7 +61,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <Link to="/" className="footer-brand"><span>AZIL HEALTHCARE<small>Medical Equipment Sales &amp; Service</small></span></Link>
+      <Link to="/" className="footer-brand"><img src={azilLogoUrl} alt="" /><span>AZIL HEALTHCARE<small>Medical Equipment Sales &amp; Service</small></span></Link>
       <p>Supporting Towards Medicare</p>
       <div className="footer-links"><Link to="/about">About Us</Link><Link to="/products">Products</Link><Link to="/services">Services</Link><Link to="/contact">Contact Us</Link></div>
       <small>© 2026 AZIL Healthcare. All rights reserved.</small>

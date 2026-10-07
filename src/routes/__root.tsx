@@ -10,6 +10,7 @@ import {
 } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
+import azilLogoUrl from "@/assets/azil-healthcare-logo.png";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -76,6 +77,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "viewport", content: "width=device-width, initial-scale=1" },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: azilLogoUrl },
       {
         rel: "stylesheet",
         href: appCss,
