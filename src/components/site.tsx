@@ -5,9 +5,9 @@ import {
   Headphones, HeartPulse, Mail, MapPin, Menu, MessageCircle, Phone,
   Search, Send, Settings, ShieldCheck, Tag, Target, Users, Wrench, X, Eye,
 } from "lucide-react";
-import azilLogoUrl from "@/assets/azil-healthcare-logo.png";
 import { Button } from "@/components/ui/button";
-import { brand, images, productCategories } from "@/lib/site-data";
+import { images } from "@/lib/images";
+import { brand, brandNames, productCategories } from "@/lib/site-data";
 
 const navLinks = [
   { label: "Home", to: "/" as const },
@@ -27,7 +27,7 @@ export function SiteHeader() {
       <div className="brand-row">
         <div className="brand-wrap">
           <Link to="/" className="identity" aria-label="AZIL Healthcare home">
-            <img className="identity-logo" src={azilLogoUrl} alt="" />
+            <img className="identity-logo" src={images.logo} alt="" />
             <span className="identity-copy">
               <span className="identity-title"><strong>AZIL</strong> <b>HEALTHCARE</b></span>
               <span className="identity-subtitle">Medical Equipment Sales &amp; Service</span>
@@ -61,7 +61,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <Link to="/" className="footer-brand"><img src={azilLogoUrl} alt="" /><span>AZIL HEALTHCARE<small>Medical Equipment Sales &amp; Service</small></span></Link>
+      <Link to="/" className="footer-brand"><img src={images.logo} alt="" /><span>AZIL HEALTHCARE<small>Medical Equipment Sales &amp; Service</small></span></Link>
       <p>Supporting Towards Medicare</p>
       <div className="footer-links"><Link to="/about">About Us</Link><Link to="/products">Products</Link><Link to="/services">Services</Link><Link to="/contact">Contact Us</Link></div>
       <small>© 2026 AZIL Healthcare. All rights reserved.</small>
@@ -73,13 +73,13 @@ export function PageFrame({ children }: { children: ReactNode }) {
   return <><SiteHeader /><main>{children}</main><SiteFooter /></>;
 }
 
-export function Hero({ title, subtitle, description, features, className = "" }: {
+export function Hero({ title, subtitle, description, features, className = "", image }: {
   title: ReactNode; subtitle?: string; description: string;
-  features: { icon: ReactNode; label: string }[]; className?: string;
+  features: { icon: ReactNode; label: string }[]; className?: string; image: string;
 }) {
   return (
     <section className={`page-hero ${className}`}>
-      <div className="hero-photo-placeholder" aria-hidden="true" />
+      <img className="hero-photo-placeholder" src={image} alt="" aria-hidden="true" />
       <div className="hero-shade" />
       <div className="hero-inner">
         <div className="hero-copy">
@@ -103,7 +103,7 @@ export function HomeHero() {
   ];
   return (
     <section className="home-hero page-hero">
-      <div className="hero-photo-placeholder" aria-hidden="true" />
+      <img className="hero-photo-placeholder" src={images.home.hero} alt="" aria-hidden="true" />
       <div className="hero-shade" />
       <div className="home-hero-inner">
         <div className="home-hero-copy">
@@ -122,15 +122,14 @@ export function SectionTitle({ first, second, className = "" }: { first: string;
 }
 
 export function BrandStrip() {
-  const names = ["ST SURGICALS", "mindray", "Dräger", "BPL", "PHILIPS", "STERIS", "GETINGE", "RICHARD WOLF", "OLYMPUS"];
-  return <div className="brand-strip" id="brands">{names.map((name, i) => <div key={name} className={`brand-wordmark brand-wordmark-${i}`}>{name}</div>)}</div>;
+  return <div className="brand-strip" id="brands">{brandNames.map((name, i) => <div key={name} className={`brand-wordmark brand-wordmark-${i}`}><img src={images.brands[name]} alt={name} /></div>)}</div>;
 }
 
 export function CategoryTiles({ limit }: { limit?: number }) {
   const categories = limit ? productCategories.slice(0, limit) : productCategories;
   return <div className={`category-grid${limit ? " category-grid-home" : " category-grid-products"}`}>
     {categories.map((category) => <Link to="/products" key={category.title} className="category-tile">
-      <div className="category-image-placeholder" aria-hidden="true" />
+      <img className="category-image-placeholder" src={images.home.categories[category.imageKey]} alt="" aria-hidden="true" />
       <span className="category-label">{category.title}<i><ArrowRight /></i></span>
     </Link>)}
   </div>;
@@ -138,7 +137,7 @@ export function CategoryTiles({ limit }: { limit?: number }) {
 
 export function ProductList() {
   return <div className="product-list">{productCategories.map((category) => <article className="product-card" key={category.title}>
-    <div className="product-image-placeholder" aria-hidden="true" />
+    <img className="product-image-placeholder" src={images.products.categories[category.imageKey]} alt="" aria-hidden="true" />
     <div className="product-info"><div className="product-title-row"><span className="product-icon">{category.icon}</span><h2>{category.title}</h2><span className="circle-arrow"><ArrowRight /></span></div>
       <ul>{category.items.map((item) => <li key={item}>{item}</li>)}</ul>
       <Button asChild size="sm"><Link to="/contact">View Products <ArrowRight /></Link></Button>
@@ -151,7 +150,7 @@ export function QuoteCard({ title = "REQUEST A QUOTATION", children }: { title?:
 }
 
 export function AboutTeaser() {
-  return <section className="about-teaser content-width"><div className="office-image-placeholder" aria-hidden="true" /><div className="about-teaser-copy"><SectionTitle first="ABOUT" second="AZIL HEALTHCARE" /><p>Azil Healthcare is a growing medical equipment company specialized in the sales and supply of high-quality hospital equipment, accessories and consumables. We provide reliable and cost-effective solutions for hospitals, clinics and healthcare institutions with a focus on customer satisfaction.</p><Button asChild size="sm"><Link to="/about">Know More About Us <ArrowRight /></Link></Button></div><QuoteCard /></section>;
+  return <section className="about-teaser content-width"><img className="office-image-placeholder" src={images.home.hospital} alt="Hospital building" /><div className="about-teaser-copy"><SectionTitle first="ABOUT" second="AZIL HEALTHCARE" /><p>Azil Healthcare is a growing medical equipment company specialized in the sales and supply of high-quality hospital equipment, accessories and consumables. We provide reliable and cost-effective solutions for hospitals, clinics and healthcare institutions with a focus on customer satisfaction.</p><Button asChild size="sm"><Link to="/about">Know More About Us <ArrowRight /></Link></Button></div><QuoteCard /></section>;
 }
 
 export function ContactForm() {

@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, HeartPulse, ShieldCheck, Truck, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hero, PageFrame, ProductList, SectionTitle } from "@/components/site";
+import { images } from "@/lib/images";
 
 export const Route = createFileRoute("/products")({
   head: () => ({ meta: [
@@ -16,7 +17,7 @@ export const Route = createFileRoute("/products")({
 
 function ProductsPage() {
   return <PageFrame>
-    <Hero className="products-hero" title={<>Complete Medical<br />Equipment Range</>} subtitle="OUR PRODUCTS" description="Quality equipment for Hospitals, Operating Theatres, ICUs and Healthcare Institutions" features={[
+    <Hero className="products-hero" image={images.products.hero} title={<>Complete Medical<br />Equipment Range</>} subtitle="OUR PRODUCTS" description="Quality equipment for Hospitals, Operating Theatres, ICUs and Healthcare Institutions" features={[
       { icon: <ShieldCheck />, label: "Premium Quality" }, { icon: <HeartPulse />, label: "Multi-Brand Solutions" }, { icon: <Truck />, label: "Reliable Supply" }, { icon: <Users />, label: "Professional Support" },
     ]} />
     <section className="products-section content-width"><ProductList /></section>

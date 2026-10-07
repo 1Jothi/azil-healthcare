@@ -10,6 +10,7 @@ export const brand = {
 export const productCategories = [
   {
     title: "Operation Theatre Equipment",
+    imageKey: "ot",
     items: [
       "OT Lights",
       "OT Tables",
@@ -23,6 +24,7 @@ export const productCategories = [
   },
   {
     title: "ICU & Critical Care Equipment",
+    imageKey: "icu",
     items: [
       "Ventilators",
       "Patient Monitors",
@@ -37,6 +39,7 @@ export const productCategories = [
   },
   {
     title: "Endoscopy Equipment",
+    imageKey: "endoscopy",
     items: [
       "Rigid Bronchoscopy Sets",
       "Rigid Thoracoscopy Sets",
@@ -50,6 +53,7 @@ export const productCategories = [
   },
   {
     title: "Patient Monitoring Equipment",
+    imageKey: "monitoring",
     items: [
       "Multipara Monitors",
       "ECG Machines",
@@ -64,6 +68,7 @@ export const productCategories = [
   },
   {
     title: "Hospital Furniture",
+    imageKey: "furniture",
     items: [
       "Hospital Beds (Manual / Electric)",
       "ICU Beds",
@@ -77,6 +82,7 @@ export const productCategories = [
   },
   {
     title: "Medical Consumables",
+    imageKey: "consumables",
     items: [
       "BP Bladders & Cuffs",
       "Suction Catheters",
@@ -91,6 +97,7 @@ export const productCategories = [
   },
   {
     title: "Medical Gas & ICU Infrastructure",
+    imageKey: "gas",
     items: [
       "Medical Gas Manifold Systems",
       "Bed Head Panels",
@@ -103,6 +110,7 @@ export const productCategories = [
   },
   {
     title: "Other Medical Equipment",
+    imageKey: "other",
     items: [
       "Autoclaves",
       "Suction Units",
@@ -115,7 +123,7 @@ export const productCategories = [
     ],
     icon: "▤",
   },
-];
+] as const;
 
 export const brandNames = [
   "ST SURGICALS",
@@ -127,31 +135,37 @@ export const brandNames = [
   "GETINGE",
   "RICHARD WOLF",
   "OLYMPUS",
-];
+] as const;
 
 export const services = [
   {
     title: "Installation & Commissioning",
+    imageKey: "installation",
     text: "Professional installation and commissioning of medical equipment by trained engineers.",
   },
   {
     title: "Preventive Maintenance (AMC)",
+    imageKey: "maintenance",
     text: "Regular maintenance to ensure reliable and uninterrupted performance of your equipment.",
   },
   {
     title: "Repair & Servicing",
+    imageKey: "repair",
     text: "Quick and efficient repair services with genuine spares and professional support.",
   },
   {
     title: "Calibration & Testing",
+    imageKey: "calibration",
     text: "Accurate calibration and performance testing as per manufacturer standards.",
   },
   {
     title: "Spare Parts Support",
+    imageKey: "spareParts",
     text: "Supply of genuine and compatible spare parts for multiple brands.",
   },
   {
     title: "User Training",
+    imageKey: "training",
     text: "On-site training for hospital staff to ensure safe and effective use of equipment.",
   },
-];
+] as const;

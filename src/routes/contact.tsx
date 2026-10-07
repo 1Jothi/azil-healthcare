@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Clock3, FileText, Mail, MapPin, MessageCircle, Phone, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ContactForm, PageFrame } from "@/components/site";
+import { images } from "@/lib/images";
 import { brand } from "@/lib/site-data";
 
 export const Route = createFileRoute("/contact")({
@@ -30,7 +31,7 @@ function ContactPage() {
   return (
     <PageFrame>
       <section className="contact-hero page-hero">
-        <div className="hero-photo-placeholder" aria-hidden="true" />
+        <img className="hero-photo-placeholder" src={images.contact.agent} alt="" aria-hidden="true" />
         <div className="hero-shade" />
         <div className="hero-inner">
           <div className="hero-copy">
@@ -167,13 +168,13 @@ function ContactPage() {
       <section className="contact-lower content-width">
         <article>
           <h2>Our Location</h2>
-          <iframe
-            className="location-map"
-            title="AZIL Healthcare location on Google Maps"
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(brand.address)}&z=15&output=embed`}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          <a
+            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(brand.address)}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <img className="location-map" src={images.contact.map} alt="Map showing the AZIL Healthcare location in Thirupathur" />
+          </a>
           <a
             className="map-directions"
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(brand.address)}`}
@@ -185,7 +186,7 @@ function ContactPage() {
         </article>
         <article>
           <h2>Our Office</h2>
-          <div className="office-image-placeholder" aria-hidden="true" />
+          <img className="office-image-placeholder" src={images.contact.office} alt="AZIL Healthcare office front" />
         </article>
         <article className="touch-panel">
           <h2>Get In Touch Easily</h2>
