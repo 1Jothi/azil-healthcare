@@ -26,7 +26,6 @@ export function SiteHeader() {
       <div className="brand-row">
         <div className="brand-wrap">
           <Link to="/" className="identity" aria-label="AZIL Healthcare home">
-            <img className="identity-mark" src={brand.emblem} alt="AZIL Healthcare emblem" />
             <span className="identity-copy">
               <span className="identity-title"><strong>AZIL</strong> <b>HEALTHCARE</b></span>
               <span className="identity-subtitle">Medical Equipment Sales &amp; Service</span>
@@ -60,7 +59,7 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="site-footer">
-      <Link to="/" className="footer-brand"><img src={brand.emblem} alt="" /> <span>AZIL HEALTHCARE<small>Medical Equipment Sales &amp; Service</small></span></Link>
+      <Link to="/" className="footer-brand"><span>AZIL HEALTHCARE<small>Medical Equipment Sales &amp; Service</small></span></Link>
       <p>Supporting Towards Medicare</p>
       <div className="footer-links"><Link to="/about">About Us</Link><Link to="/products">Products</Link><Link to="/services">Services</Link><Link to="/contact">Contact Us</Link></div>
       <small>© 2026 AZIL Healthcare. All rights reserved.</small>
@@ -72,13 +71,13 @@ export function PageFrame({ children }: { children: ReactNode }) {
   return <><SiteHeader /><main>{children}</main><SiteFooter /></>;
 }
 
-export function Hero({ image, title, subtitle, description, features, className = "" }: {
-  image: string; title: ReactNode; subtitle?: string; description: string;
+export function Hero({ title, subtitle, description, features, className = "" }: {
+  title: ReactNode; subtitle?: string; description: string;
   features: { icon: ReactNode; label: string }[]; className?: string;
 }) {
   return (
     <section className={`page-hero ${className}`}>
-      <img className="hero-photo" src={image} alt="Medical equipment and care at AZIL Healthcare" fetchPriority="high" />
+      <div className="hero-photo-placeholder" aria-hidden="true" />
       <div className="hero-shade" />
       <div className="hero-inner">
         <div className="hero-copy">
@@ -102,7 +101,7 @@ export function HomeHero() {
   ];
   return (
     <section className="home-hero page-hero">
-      <img className="hero-photo" src={images.home} alt="Operating theatre with medical equipment" fetchPriority="high" />
+      <div className="hero-photo-placeholder" aria-hidden="true" />
       <div className="hero-shade" />
       <div className="home-hero-inner">
         <div className="home-hero-copy">
@@ -129,7 +128,7 @@ export function CategoryTiles({ limit }: { limit?: number }) {
   const categories = limit ? productCategories.slice(0, limit) : productCategories;
   return <div className={`category-grid${limit ? " category-grid-home" : " category-grid-products"}`}>
     {categories.map((category) => <Link to="/products" key={category.title} className="category-tile">
-      <img src={category.image} alt={category.title} loading="lazy" />
+      <div className="category-image-placeholder" aria-hidden="true" />
       <span className="category-label">{category.title}<i><ArrowRight /></i></span>
     </Link>)}
   </div>;
@@ -137,7 +136,7 @@ export function CategoryTiles({ limit }: { limit?: number }) {
 
 export function ProductList() {
   return <div className="product-list">{productCategories.map((category) => <article className="product-card" key={category.title}>
-    <img src={category.image} alt={category.title} loading="lazy" />
+    <div className="product-image-placeholder" aria-hidden="true" />
     <div className="product-info"><div className="product-title-row"><span className="product-icon">{category.icon}</span><h2>{category.title}</h2><span className="circle-arrow"><ArrowRight /></span></div>
       <ul>{category.items.map((item) => <li key={item}>{item}</li>)}</ul>
       <Button asChild size="sm"><Link to="/contact">View Products <ArrowRight /></Link></Button>
@@ -150,7 +149,7 @@ export function QuoteCard({ title = "REQUEST A QUOTATION", children }: { title?:
 }
 
 export function AboutTeaser() {
-  return <section className="about-teaser content-width"><img src={images.office} alt="AZIL Healthcare office" loading="lazy" /><div className="about-teaser-copy"><SectionTitle first="ABOUT" second="AZIL HEALTHCARE" /><p>Azil Healthcare is a growing medical equipment company specialized in the sales and supply of high-quality hospital equipment, accessories and consumables. We provide reliable and cost-effective solutions for hospitals, clinics and healthcare institutions with a focus on customer satisfaction.</p><Button asChild size="sm"><Link to="/about">Know More About Us <ArrowRight /></Link></Button></div><QuoteCard /></section>;
+  return <section className="about-teaser content-width"><div className="office-image-placeholder" aria-hidden="true" /><div className="about-teaser-copy"><SectionTitle first="ABOUT" second="AZIL HEALTHCARE" /><p>Azil Healthcare is a growing medical equipment company specialized in the sales and supply of high-quality hospital equipment, accessories and consumables. We provide reliable and cost-effective solutions for hospitals, clinics and healthcare institutions with a focus on customer satisfaction.</p><Button asChild size="sm"><Link to="/about">Know More About Us <ArrowRight /></Link></Button></div><QuoteCard /></section>;
 }
 
 export function ContactForm() {
