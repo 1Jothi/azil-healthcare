@@ -1,6 +1,4 @@
 - [x] Record the screenshot-matching brief, contact facts, and image assets
-- [x] Build shared navigation, page styling, and image-based content
-- [x] Implement Home, About, Products, Services, and Contact pages
-- [ ] Rebuild the home experience as a single-page anchored site with requested interactions
-- [ ] Replace screenshot crops with newly supplied original photos and brand emblem
+- [ ] Build shared navigation, page styling, and image-based content
+- [ ] Implement Home, About, Products, Services, and Contact pages
 - [ ] Verify page navigation, mobile layout, and current preview build
