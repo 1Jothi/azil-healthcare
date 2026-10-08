@@ -534,7 +534,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--color-brand-blu
   .product-card { grid-template-columns: minmax(180px, 0.75fr) 1fr; }
   .product-image-placeholder { width: 100%; min-height: 220px; }
   .product-cta { grid-template-columns: 55px 1fr; }
-  .product-cta > .button { grid-row: 2; }
+  .product-cta > a { grid-row: 2; min-width: 0; }
   .about-hero { height: 420px; }
   .about-hero .hero-photo-placeholder { left: 42%; background-position: 62% center; }
   .about-hero .hero-shade { background: linear-gradient(90deg, var(--color-background) 0%, color-mix(in oklch, var(--color-background) 96%, transparent) 43%, color-mix(in oklch, var(--color-background) 78%, transparent) 54%, transparent 70%); }
@@ -557,7 +557,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--color-brand-blu
   .service-support { grid-template-columns: 1fr 1fr; }
   .support-image-placeholder { height: 180px; }
   .service-quote { grid-column: 1 / -1; }
-  .contact-main { grid-template-columns: 1fr 1.25fr; }
+  .contact-main { grid-template-columns: 1fr; }
   .contact-lower { grid-template-columns: 1fr 1fr; }
   .touch-panel { grid-column: 1 / -1; }
   .home-services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -667,6 +667,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--color-brand-blu
   .contact-hero .hero-copy > p { font-size: 14px; }
   .contact-hero .hero-feature-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
   .contact-main { grid-template-columns: 1fr; gap: 10px; }
+  .form-grid { grid-template-columns: 1fr; }
   .contact-info h2, .enquiry-form h2 { font-size: 20px; }
   .contact-item { grid-template-columns: 45px 1fr; margin-top: 10px; }
   .contact-item > span { width: 41px; height: 41px; }
@@ -677,6 +678,25 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--color-brand-blu
   .contact-lower { grid-template-columns: 1fr; }
   .map-image-placeholder, .contact-lower .office-image-placeholder { height: 205px; }
   .touch-panel { grid-column: auto; }
+}
+
+@media (max-width: 560px) {
+  .product-cta > a {
+    grid-row: auto;
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 44px;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-inline: 10px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-align: center;
+    line-height: 1.2;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
