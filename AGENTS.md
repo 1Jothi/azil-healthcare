@@ -9,4 +9,4 @@
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
 
-Keep each user-facing page in a dedicated TanStack Router route file so page-specific metadata and navigation stay distinct.
+Keep TanStack Router routes as the owners of page-specific metadata; the AZIL home experience is a single scrolling page with in-page anchor sections as required by the current brief.
