@@ -1,5 +1,4 @@
 import aboutCommitment from "@/assets/about-commitment.jpg.asset.json";
-import brandEmblem from "@/assets/brand-emblem.jpg.asset.json";
 import categoryConsumables from "@/assets/category-consumables.jpg.asset.json";
 import categoryEndoscopy from "@/assets/category-endoscopy.jpg.asset.json";
 import categoryFurniture from "@/assets/category-furniture.jpg.asset.json";
@@ -28,7 +27,7 @@ export const brand = {
   email: "azilhealthcare@gmail.com",
   address: "No.14, Old Thirukolakudi, Thirupathur, Sivaganga, Tamil Nadu - 630405",
   hours: "Monday - Saturday, 9:00 AM - 6:00 PM (Sunday Holiday)",
-  emblem: brandEmblem.url,
+  emblem: "/images/azil-logo.png",
 };
 
 export const productCategories = [
@@ -95,10 +94,10 @@ export const services = [
 
 export const images = {
   home: heroHome.url,
-  about: heroAbout.url,
-  contact: heroContact.url,
+  about: "/images/about-hero.jpg",
+  contact: "/images/contact-agent.jpg",
   services: heroServices.url,
-  commitment: aboutCommitment.url,
-  map: contactMap.url,
-  office: contactOffice.url,
+  commitment: "/images/doctor-shield.jpg",
+  map: "/images/map.png",
+  office: "/images/office-front.jpg",
 };

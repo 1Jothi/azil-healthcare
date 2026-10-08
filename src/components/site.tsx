@@ -23,6 +23,7 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [quoteOpen, setQuoteOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const currentPath = useRouterState({ select: (state) => state.location.pathname });
   useEffect(() => {
     if (currentPath !== "/") return;
@@ -34,6 +35,12 @@ export function SiteHeader() {
     sections.forEach((section) => observer.observe(section));
     return () => observer.disconnect();
   }, [currentPath]);
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 40);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
   const jump = (id: string) => {
     setOpen(false);
     if (currentPath !== "/") return;
@@ -41,7 +48,7 @@ export function SiteHeader() {
   };
   return (
     <>
-    <header className="site-header">
+    <header className={`site-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="top-info-strip"><span>Supporting Towards Medicare</span><span>Mon - Sat: 9:00 AM - 6:00 PM</span></div>
       <div className="brand-row">
         <div className="brand-wrap">
@@ -84,7 +91,7 @@ export function SiteFooter() {
     <footer className="site-footer">
       <Link to="/" className="footer-brand"><img src={brand.emblem} alt="" /> <span>AZIL HEALTHCARE<small>Medical Equipment Sales &amp; Service</small></span></Link>
       <p>Supporting Towards Medicare</p>
-      <div className="footer-links"><Link to="/about">About Us</Link><Link to="/products">Products</Link><Link to="/services">Services</Link><Link to="/contact">Contact Us</Link></div>
+      <div className="footer-links"><a href="/#about">About Us</a><a href="/#products">Products</a><a href="/#services">Services</a><a href="/#contact">Contact Us</a><a href="/#catalogue">Catalogue</a><a href="#home">Back to top ↑</a></div>
       <small>© 2026 AZIL Healthcare. All rights reserved.</small>
     </footer>
   );
@@ -123,7 +130,7 @@ export function HomeHero() {
     { icon: <Users />, label: <>Professional<br />Support</> },
   ];
   return (
-    <section className="home-hero page-hero">
+    <section className="home-hero page-hero" id="home">
       <img className="hero-photo" src={images.home} alt="Operating theatre with medical equipment" fetchPriority="high" />
       <div className="hero-shade" />
       <div className="home-hero-inner">
@@ -133,7 +140,9 @@ export function HomeHero() {
           <div className="hero-actions"><Button asChild size="lg"><Link to="/products">Explore Products <ArrowRight /></Link></Button><Button asChild variant="outline" size="lg" className="hero-secondary"><Link to="/contact"><FileText />Request a Quotation</Link></Button></div>
           <div className="home-feature-row">{features.map((feature, index) => <div key={index}>{feature.icon}<span>{feature.label}</span></div>)}</div>
         </div>
+        <div className="hero-partner-badge"><ShieldCheck /><span>Reliable Healthcare Partner</span></div>
       </div>
+      <a className="scroll-cue" href="#about" aria-label="Scroll to About Us"><span>Scroll to explore</span><ArrowRight /></a>
     </section>
   );
 }
@@ -158,13 +167,17 @@ export function CategoryTiles({ limit }: { limit?: number }) {
 }
 
 export function ProductList() {
-  return <div className="product-list">{productCategories.map((category) => <article className="product-card" key={category.title}>
-    <img src={category.image} alt={category.title} loading="lazy" />
-    <div className="product-info"><div className="product-title-row"><span className="product-icon">{category.icon}</span><h2>{category.title}</h2><span className="circle-arrow"><ArrowRight /></span></div>
-      <ul>{category.items.map((item) => <li key={item}>{item}</li>)}</ul>
-      <Button asChild size="sm"><Link to="/contact">View Products <ArrowRight /></Link></Button>
-    </div>
-  </article>)}</div>;
+  const [selected, setSelected] = useState<(typeof productCategories)[number] | null>(null);
+  return <>
+    <div className="product-list">{productCategories.map((category) => <article className="product-card" key={category.title}>
+      <img src={category.image} alt={category.title} loading="lazy" />
+      <div className="product-info"><div className="product-title-row"><h2>{category.title}</h2><span className="circle-arrow"><ArrowRight /></span></div>
+        <ul>{category.items.slice(0, 5).map((item) => <li key={item}>{item}</li>)}</ul>
+        <Button size="sm" onClick={() => setSelected(category)}>View Products <ArrowRight /></Button>
+      </div>
+    </article>)}</div>
+    <Dialog open={Boolean(selected)} onOpenChange={(open) => { if (!open) setSelected(null); }}><DialogContent className="product-dialog"><DialogHeader><DialogTitle>{selected?.title}</DialogTitle><DialogDescription>Equipment available from AZIL Healthcare.</DialogDescription></DialogHeader><ul className="dialog-product-list">{selected?.items.map((item) => <li key={item}>{item}</li>)}</ul><Button asChild><a href="#contact" onClick={() => { if (selected) window.dispatchEvent(new CustomEvent("azil:prefill-product", { detail: selected.title })); setSelected(null); }}>Enquire Now <ArrowRight /></a></Button></DialogContent></Dialog>
+  </>;
 }
 
 export function QuoteCard({ title = "REQUEST A QUOTATION", children }: { title?: string; children?: ReactNode }) {
@@ -177,6 +190,12 @@ export function AboutTeaser() {
 
 export function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState("");
+  useEffect(() => {
+    const prefill = (event: Event) => setSelectedProduct((event as CustomEvent<string>).detail);
+    window.addEventListener("azil:prefill-product", prefill);
+    return () => window.removeEventListener("azil:prefill-product", prefill);
+  }, []);
   const submit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -199,7 +218,7 @@ export function ContactForm() {
       <label>Hospital / Organization<input name="organization" placeholder="Enter hospital or company name" /></label>
       <label>Phone Number *<input name="phone" type="tel" placeholder="Enter your phone number" required /></label>
       <label>Email Address<input name="email" type="email" placeholder="Enter your email address" /></label>
-      <label className="form-wide">Product / Equipment Required *<select name="product" required defaultValue=""><option value="" disabled>Select Product Category</option>{productCategories.map((item) => <option key={item.title}>{item.title}</option>)}</select></label>
+      <label className="form-wide">Product / Equipment Required *<select name="product" required value={selectedProduct} onChange={(event) => setSelectedProduct(event.target.value)}><option value="" disabled>Select Product Category</option>{productCategories.map((item) => <option key={item.title}>{item.title}</option>)}</select></label>
       <label className="form-wide">Message / Requirements<textarea name="message" placeholder="Please provide details of your requirement..." rows={3} /></label>
     </div>
     <Button type="submit" className="send-button"><Send />{submitted ? "Enquiry Details Ready" : "Send Enquiry"}</Button>
