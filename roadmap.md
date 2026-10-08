@@ -2,3 +2,4 @@
 - [ ] Build shared navigation, page styling, and image-based content
 - [ ] Implement Home, About, Products, Services, and Contact pages
 - [ ] Verify page navigation, mobile layout, and current preview build
+- [ ] Replace screenshot crops with newly supplied original photos and brand emblem; match the updated single-page brief
